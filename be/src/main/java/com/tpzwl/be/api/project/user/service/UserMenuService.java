@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tpzwl.be.api.project.user.payload.response.MenuResponse;
+import com.tpzwl.be.api.security.mapper.RoleMapper;
 import com.tpzwl.be.api.security.model.Permission;
 import com.tpzwl.be.api.security.model.User;
 import com.tpzwl.be.api.security.repository.RoleRepository;
@@ -22,11 +23,20 @@ public class UserMenuService {
 	
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private RoleMapper roleMapper;
 
 	public List<MenuResponse> getUserMenusByName(String name) {
 		User user = userRepository.findByUsername(name).orElseThrow(() -> new RuntimeException("Error: User is not found."));
 		List<Long> roleIds = user.getRoles().stream().map(role -> role.getId()).collect(Collectors.toList());	
-		List<Permission> permissions = roleRepository.findMenuTreeByRoleIds(roleIds);
+		
+		/**
+		 * 分别用JPA命名查询和MyBatis实现获取菜单树的功能。对于复杂查询，MyBatis通常更灵活和高效一些。
+         */
+//		List<Permission> permissions = roleRepository.findMenuTreeByRoleIds(roleIds);
+		List<Permission> permissions = roleMapper.findMenuTreeByRoleIds(roleIds);
+		
 		// Create a HashMap to hold the menus grouped by their depth
 		HashMap<Short, HashMap<Long, Permission>> permissionMapByDepth = new HashMap<>(); 	
 		for (Permission permission : permissions) {
@@ -42,7 +52,7 @@ public class UserMenuService {
 		List<MenuResponse> menuTree = new ArrayList<>();
 		HashMap<Short, List<MenuResponse>> menuMapByDepth = new HashMap<>();
 
-		for (short i = 1; i < permissionMapByDepth.size(); i++) {
+		for (short i = 1; i <= permissionMapByDepth.size(); i++) {
 			HashMap<Long, Permission> currentLevel = permissionMapByDepth.get(i);
 			List<MenuResponse> menuResponseList = new ArrayList<>();
 			for (Permission permission : currentLevel.values()) {

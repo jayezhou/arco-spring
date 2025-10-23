@@ -31,6 +31,7 @@ import jakarta.persistence.*;
             "       pt.depth + 1 AS depth" +
             "    FROM permissions p " +
             "    JOIN permission_tree pt ON p.parent = pt.id " +
+            "    WHERE p.is_menu = true " +
             ") " +
             "SELECT id, permission, is_menu, parent, path, router_name, locale, requires_auth, icon, sort_order, depth FROM permission_tree",
     resultClass = Permission.class
