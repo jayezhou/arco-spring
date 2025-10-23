@@ -1,0 +1,92 @@
+# Linux format
+
+# Signup
+curl --location --request POST 'http://localhost:8080/be/api/auth/signup' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username": "mod",
+    "email": "mod@abc.com",
+    "password": "12345678",
+    "role": ["mod"]
+}'
+curl --location --request POST 'http://localhost:8080/be/api/auth/signup' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username": "adm",
+    "email": "adm@abc.com",
+    "password": "12345678",
+    "role": ["adm"]
+}'
+
+# Signin
+curl --include --location --request POST 'http://localhost:8080/be/api/auth/signin' \
+--header 'Content-Type: application/json' \
+--data '{
+    "username": "mod",
+    "password": "12345678",
+    "deviceType": "DEVICE_WECHAT_MINIPROGRAM"
+}'
+curl --include --location --request POST 'http://localhost:8080/be/api/auth/signin' \
+--header 'Content-Type: application/json' \
+--data '{
+    "username": "adm",
+    "password": "12345678",
+    "deviceType": "DEVICE_WECHAT_MINIPROGRAM"
+}'
+
+# Refresh token
+curl --include --location --request POST 'http://localhost:8080/be/api/auth/refreshtoken' \
+--header 'Content-Type: application/json' \
+--header 'X-Refresh-Token: cc2997eb-9716-4deb-8250-179b6b095a4f' \
+--data '{
+    "deviceType": "DEVICE_WECHAT_MINIPROGRAM"
+}'
+
+# Signout
+curl --include --location --request POST 'http://localhost:8080/be/api/auth/signout' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtb2QiLCJERVZJQ0VfVFlQRSI6IkRFVklDRV9XRUNIQVRfTUlOSVBST0dSQU0iLCJpYXQiOjE3NTkyMjU0NjYsImV4cCI6MTc1OTMxMTg2Nn0.MMd22HZ8w4zorNOQWzBkyO0hExK5FiZtEnOhggNGE8c' \
+--data ''
+
+# Test all access
+curl --include --location --request GET 'http://localhost:8080/be/api/test/all' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtb2QiLCJERVZJQ0VfVFlQRSI6IkRFVklDRV9XRUNIQVRfTUlOSVBST0dSQU0iLCJpYXQiOjE3NTkyMjU0NjYsImV4cCI6MTc1OTMxMTg2Nn0.MMd22HZ8w4zorNOQWzBkyO0hExK5FiZtEnOhggNGE8c' \
+--data ''
+
+# Test user access
+curl --include --location --request GET 'http://localhost:8080/be/api/test/user' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtb2QiLCJERVZJQ0VfVFlQRSI6IkRFVklDRV9XRUNIQVRfTUlOSVBST0dSQU0iLCJpYXQiOjE3NTkyMjU0NjYsImV4cCI6MTc1OTMxMTg2Nn0.MMd22HZ8w4zorNOQWzBkyO0hExK5FiZtEnOhggNGE8c' \
+--data ''
+
+# Test mod access
+curl --include --location --request GET 'http://localhost:8080/be/api/test/mod' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtb2QiLCJERVZJQ0VfVFlQRSI6IkRFVklDRV9XRUNIQVRfTUlOSVBST0dSQU0iLCJpYXQiOjE3NTkyMjU0NjYsImV4cCI6MTc1OTMxMTg2Nn0.MMd22HZ8w4zorNOQWzBkyO0hExK5FiZtEnOhggNGE8c' \
+--data ''
+
+# Test admin access
+curl --include --location --request GET 'http://localhost:8080/be/api/test/admin' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtb2QiLCJERVZJQ0VfVFlQRSI6IkRFVklDRV9XRUNIQVRfTUlOSVBST0dSQU0iLCJpYXQiOjE3NTkyMjU0NjYsImV4cCI6MTc1OTMxMTg2Nn0.MMd22HZ8w4zorNOQWzBkyO0hExK5FiZtEnOhggNGE8c' \
+--data ''
+
+# Example enterpoint /all
+curl --include --location --request GET 'http://localhost:8080/be/api/example/all' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtb2QiLCJERVZJQ0VfVFlQRSI6IkRFVklDRV9XRUNIQVRfTUlOSVBST0dSQU0iLCJpYXQiOjE3NTkyMjU0NjYsImV4cCI6MTc1OTMxMTg2Nn0.MMd22HZ8w4zorNOQWzBkyO0hExK5FiZtEnOhggNGE8c' \
+--data ''
+
+# Example enterpoint /roleCount
+curl --include --location --request GET 'http://localhost:8080/be/api/example/roleCount' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtb2QiLCJERVZJQ0VfVFlQRSI6IkRFVklDRV9XRUNIQVRfTUlOSVBST0dSQU0iLCJpYXQiOjE3NjAwMDE1NTIsImV4cCI6MTc2MDA4Nzk1Mn0.K8Vj1fNsTkwL25QKjObD1DedB7kJ7ouno9P66JQ-vOE' \
+--data ''
+
+# Example enterpoint /dashboardWorkplaceRetrieve
+curl --include --location --request GET 'http://localhost:8080/be/api/example/dashboardWorkplaceRetrieve' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtb2QiLCJERVZJQ0VfVFlQRSI6IkRFVklDRV9XRUNIQVRfTUlOSVBST0dSQU0iLCJpYXQiOjE3NjAwMDE1NTIsImV4cCI6MTc2MDA4Nzk1Mn0.K8Vj1fNsTkwL25QKjObD1DedB7kJ7ouno9P66JQ-vOE' \
+--data ''
+
