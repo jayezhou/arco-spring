@@ -37,7 +37,10 @@ public class Permission {
 	@Column
 	private Short sortOrder;
 
-	@Column(insertable = false, updatable = false)
+	// 使用MyBatis查询时，这个字段不会自动映射到数据库列，因此使用@Transient注解
+	@Transient
+	// 使用JPA时，必须注解为@Column(insertable = false, updatable = false)，在数据库创建这个字段，否则会因为没有这个字段映射失败
+//	@Column(insertable = false, updatable = false)
     private Short depth;
 	
 	public Long getId() {

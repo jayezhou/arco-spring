@@ -33,6 +33,8 @@ public class UserMenuService {
 		
 		/**
 		 * 分别用JPA命名查询和MyBatis实现获取菜单树的功能。对于复杂查询，MyBatis通常更灵活和高效一些。
+		 * 而且列和对象属性的映射更方便，可查看Permission类的的depth属性，它只是一个临时属性，没有在数据库中创建对应的列，这时JPA就需要创建这个列，否则会映射失败，而MyBatis就不需要。
+		 * 所以应该只使用JPA进行数据库的迁移（自动建表修改表、自动增减字段）和实体的简单CRUD，而复杂查询使用MyBatis来实现。
          */
 //		List<Permission> permissions = roleRepository.findMenuTreeByRoleIds(roleIds);
 		List<Permission> permissions = roleMapper.findMenuTreeByRoleIds(roleIds);
