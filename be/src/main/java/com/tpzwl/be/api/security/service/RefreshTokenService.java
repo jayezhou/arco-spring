@@ -62,7 +62,7 @@ public class RefreshTokenService {
 	}
 
 	@Transactional
-	public int deleteByUserIdAndDeviceType(Long userId, EnumDeviceType deviceType) {
-		return refreshTokenRepository.deleteByUserAndDeviceType(userRepository.findById(userId).get(), deviceType);
+	public void deleteByUserIdAndDeviceType(Long userId, EnumDeviceType deviceType) {
+		refreshTokenRepository.deleteByUserAndDeviceType(userRepository.findById(userId).get(), deviceType);
 	}
 }

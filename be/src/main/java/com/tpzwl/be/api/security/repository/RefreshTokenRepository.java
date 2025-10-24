@@ -18,5 +18,5 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long
 	RefreshToken findByUserAndDeviceType(User user, EnumDeviceType deviceType);
 
 	@Modifying
-	int deleteByUserAndDeviceType(User user, EnumDeviceType deviceType);
+	void deleteByUserAndDeviceType(User user, EnumDeviceType deviceType);
 }
